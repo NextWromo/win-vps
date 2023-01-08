@@ -1,5 +1,5 @@
 ## Windows Server*** to ubuntu 18.04 - install on Rettungs- system to VM Server - end connect to Remotedesktop ##
-
+**LAST TEST on JAN 07 2023**
 #//Grub2: if there are problems with GRUB2, version to install:  
  first install without GRUB2 [[  with:$  sudo apt update   -->  sudo apt install grub2 -y ]]  
  then we install GRUB2 separately 
