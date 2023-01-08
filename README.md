@@ -1,56 +1,64 @@
-# win-vps
-################primul script originall win install######################################### ############################################################################################ 
-sudo su apt install gparted filezilla grub2 wimtools -y
-========================= gparted ========================= 
-First some Disk Remove krni hai then saved krna hai. uske bad disk create krni hai or save krna hai. ========================= 
+## Windows Server*** to ubuntu 18.04 - install on Rettungs- system to VM Server - end connect to Remotedesktop ##
+**LAST TEST on JAN 07 2023**
+#//Grub2: if there are problems with GRUB2, version to install:  
+ first install without GRUB2 [[  with:$  sudo apt update   -->  sudo apt install grub2 -y ]]  
+ then we install GRUB2 separately 
+ [] then we continue where we left: gparted 
 
-gdisk /dev/sda 
-r 
-g 
-p 
-w 
+
+
+sudo su
+apt install gparted filezilla grub2 wimtools -y
+=========================
+#### HDD part:  delete all HDD partition
+## ( E: gparted.deb  error ) - continue install from github from @Ersin84:  grub
+=========================
+gparted
+=========================
+### First some Disk Remove krni hai then saved krna hai.
+### uske bad disk create krni hai or save krna hai.
+=========================
+gdisk /dev/sda
+r
+g
+p
+w
 Y
-
-======================== 
-
+========================
 mount /dev/sda1 /mnt
-
-cd ~ 
+cd ~
 mkdir disk
+
+
 mount /dev/sda2 disk
 grub-install --root-directory=/mnt /dev/sda
 
-cd /mnt/boot/grub
+
+cd /mnt/boot/grub 
+
 
 ========================
-nano grub.cfg 
 
-======================= 
+nano grub.cfg
 
+=======================
+### add script --> save ###
+=======================
 menuentry "Windows Installer" {
 insmod ntfs
 search --set=root --file= /bootmgr
 ntldr /bootmgr
 boot
-} 
-
-======================= 
-
+}
+=======================
 cd /root/disk
+
 mkdir wincd
-
-====================== 
-ISO For Windows Server 2020 Use 
-wget -O win10.iso https://bit.ly/WINDOWN-10-2020
-
-ISO For Windows Server 2019 use 
-wget -O win10.iso https://bit.ly/LP2019WIN
-
-ISO For Windows Server 2016 Use 
-wget -O win10.iso https://bit.ly/3eaXToH
-
-
-===================== 
+======================
+### ISO For Windows        10   Use ###    wget -O win10.iso https://wromo.de/win.iso
+### ISO For Windows Server 2019 use ###    wget -O win10.iso https://bit.ly/LP2019WIN
+### ISO For Windows Server 2016 Use ###    wget -O win10.iso https://bit.ly/3eaXToH
+=====================
 
 mount -o loop win10.iso wincd
 
@@ -58,7 +66,7 @@ rsync -avz --progress wincd/* /mnt
 
 umount wincd
 
-wget -O virtio.iso https://bit.ly/VIRTIO-RDP
+wget -O virtio.iso https://wromo.de/virtio-rdp.iso
 
 mount -o loop virtio.iso wincd
 
@@ -71,21 +79,20 @@ touch cmd.txt
 echo 'add virtio /virtio_drivers' >> cmd.txt
 
 apt install florence
+
 florence
+========================================
+###  COMMANDS RUN THROUGH USER@DEBIAN
+========================================
+cd /mnt/sources 
 
+wimlib-imagex update boot.wim 2 < cmd.txt
 
-======================================== 
-COMMANDS RUN THROUGH USER@DEBIAN 
-======================================== 
-cd /mnt/sources
-
-wimlib-imagex update boot.wim 2 &lt; cmd.txt 
 sudo su
+
 reboot
 
-
 ==================================
-WINDOWS DRIVERS PATH 
+### WINDOWS DRIVERS PATH
 =================================
-
 Boot/virtio_drivers/amd64/win10
