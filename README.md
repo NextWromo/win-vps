@@ -1,5 +1,7 @@
 ## Windows Server*** to ubuntu 18.04 - install on Rettungs- system to VM Server - end connect to Remotedesktop ##
 **LAST TEST on JAN 07 2023**
+- successfully installed windows 10 PRO - it was a curiosity with win10, normally it was for win-server 
+- New links for 'Virtio' and 'Grub2' recommendation
 #//Grub2: if there are problems with GRUB2, version to install:  
  first install without GRUB2 [[  with:$  sudo apt update   -->  sudo apt install grub2 -y ]]  
  then we install GRUB2 separately 
